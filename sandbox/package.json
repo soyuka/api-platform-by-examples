@@ -6,11 +6,14 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
-  "author": "",
+  "author": "soyuka",
   "license": "ISC",
   "description": "",
   "dependencies": {
-    "php-wasm": "^0.0.1-b"
+    "balalaika": "^1.0.1",
+    "monaco-editor": "^0.21.2",
+    "normalize.css": "^8.0.1",
+    "vanillatree": "^0.0.3"
   },
   "devDependencies": {
     "brfs": "^2.0.2",

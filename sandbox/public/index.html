@@ -2,9 +2,22 @@
 <html>
   <head>
     <title>Sandbox</title>
+    <link rel="stylesheet" href="normalize.css">
+    <link rel="stylesheet" href="style.css">
   </head>
   <body>
-    <iframe id="frame" width="1024" height="768" frameBorder="0"></iframe>
+    <div class="row">
+      <div id="file-list" class="col col-tenth"></div>
+      <iframe id="editor" frameBorder="0" src="editor.html" style="width: 40%; min-height: 100vh" class="col"></iframe>
+      <div class="col" style="flex-direction: column; padding-left:1em;">
+        <div>
+          Request <input type="text" value="/books" />
+        </div>
+        <div>
+          <iframe id="response" src="response.html" frameBorder="0" width="100%" style="min-height: 100vh"></iframe>
+        </div>
+      </div>
+    </div>
     <script type="text/javascript" src="main.js"></script>
   </body>
 </html>
