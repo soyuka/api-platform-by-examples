@@ -1,0 +1,6 @@
+{
+  "file": "src/Model/Book.php",
+  "uri": "/books",
+  "method": "GET",
+  "body": ""
+}

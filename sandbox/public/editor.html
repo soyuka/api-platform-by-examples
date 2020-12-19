@@ -23,7 +23,9 @@
         window.monaco = monaco
 				window.editor = monaco.editor.create(document.getElementById('container'), {
 					value: '<?php\n ',
-					language: 'php'
+					language: 'php',
+          padding: { top: '10px', bottom: '10px' },
+          wordWrap: 'on',
 				});
 
 				window.onresize = function () {

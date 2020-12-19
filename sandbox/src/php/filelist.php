@@ -1,4 +1,5 @@
 <?php
-foreach(glob('/src/*') as $filename){
+
+foreach(glob('/src/api-platform/*') as $filename){
    echo $filename, '<br>'; 
 }

@@ -1,67 +1,42 @@
-const fs = require('fs');
-const phpCode = fs.readFileSync(__dirname + '/php/api-platform.php', 'utf8');
+const {Observable} = require('rxjs')
 const phpBinary = require('../php-wasm/php-web');
+
 const NUM = 'number'
 const STR = 'string'
 
 function php() {
+  let onStdout = {next: () => {}}
+  let onStderr = {next: () => {}}
+  const stdout = new Observable((subscriber) => { onStdout = subscriber })
+  const stderr = new Observable((subscriber) => { onStderr = subscriber })
+
   return phpBinary({
-      onAbort: function(reason) {
-        console.error('WASM aborted: ' + reason)
-      },
-      print: function (...args) {
-        if (args[0]) {
-          console.log.apply(null, args)
-        }
-      },
-      printErr: function (...args) {
-        if (args[0]) {
-          console.error.apply(null, args)
-        }
+    onAbort(reason) {
+      console.error(`WASM aborted: ${reason}`)
+    },
+    print(data) {
+      if (data) {
+        onStdout.next(data)
       }
+    },
+    printErr(data) {
+      if (data) {
+        onStderr.next(data)
+      }
+    },
   })
-  .then(({ccall, FS}) => {
-    let retVal = ccall(
-      'pib_init'
-      , NUM
-      , [STR]
-      , []
-    );
+    .then(({ccall, FS, IDBFS}) => {
+      ccall('pib_init', NUM, [STR], []);
+      const phpVersion = ccall('pib_exec', STR, [STR], ['phpversion();']);
+      const runCode = (phpCode) => {
+        ccall('pib_run', NUM, [STR], [`?>${phpCode}`])
+      }
 
-    console.log('PHP initialized', retVal)
-
-    const phpVersion = ccall(
-      'pib_exec'
-      , STR
-      , [STR]
-      , [`phpversion();`]
-    );
-
-    console.log('PHP version', phpVersion)
-
-    ccall(
-      'pib_run'
-      , NUM
-      , [STR]
-      , [`?>${phpCode}`]
-    )
-
-    // unpersist-memory
-    // refresh()
-    // {
-    // 	const call = this.binary.then(php => php.ccall(
-    // 		'pib_refresh'
-    // 		, NUM
-    // 		, []
-    // 		, []
-    // 	));
-    //
-    // 	call.catch(error => console.error(error));
-    //
-    // 	return call;
-    // }
-    return {ccall, FS}
-  })
+      const reset = () => ccall('pib_refresh', NUM, [], [])
+      return {
+        ccall, FS, stdout, stderr, phpVersion, runCode, reset, IDBFS,
+      }
+    })
 }
 
 module.exports = php

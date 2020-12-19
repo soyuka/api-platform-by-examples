@@ -11,13 +11,18 @@
   "description": "",
   "dependencies": {
     "balalaika": "^1.0.1",
+    "marked": "^1.2.7",
     "monaco-editor": "^0.21.2",
     "normalize.css": "^8.0.1",
+    "rxjs": "^6.6.3",
     "vanillatree": "^0.0.3"
   },
   "devDependencies": {
     "brfs": "^2.0.2",
     "browserify": "^17.0.0",
+    "eslint": "^7.16.0",
+    "eslint-config-airbnb-base": "^14.2.1",
+    "eslint-plugin-import": "^2.22.1",
     "watchify": "^3.11.1"
   }
 }

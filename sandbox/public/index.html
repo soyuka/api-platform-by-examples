@@ -1,23 +1,88 @@
 <!doctype html>
 <html>
-  <head>
-    <title>Sandbox</title>
-    <link rel="stylesheet" href="normalize.css">
-    <link rel="stylesheet" href="style.css">
+  <head lang="en">
+    <title>API Platform by Examples</title>
+    <link rel="stylesheet" href="https://fonts.xz.style/serve/inter.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@exampledev/new.css@1.1.2/new.min.css">
+    <link rel="stylesheet" href="style.css" rel="preload">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
   </head>
   <body>
+    <header class="row" style="justify-content: space-between;">
+      <div class="col">
+        <h1>API Platform <small>by examples</small></h1>
+      </div>
+      <div>
+        <span data-php-version></span>
+        <br>
+        <span>API Platform: 2.6</span>
+      </div>
+    </header>
     <div class="row">
-      <div id="file-list" class="col col-tenth"></div>
-      <iframe id="editor" frameBorder="0" src="editor.html" style="width: 40%; min-height: 100vh" class="col"></iframe>
-      <div class="col" style="flex-direction: column; padding-left:1em;">
+      <div class="col">
+        <label for="example">Example: </label>
+        <select id="example" name="example">
+          <option value="basic">1. Basic</option>
+          <option value="persist">2. Persistence</option>
+        </select>
+        <button class="secondary" title="Toggle file tree" data-toggle="file-list-container">Hide files</button>
+        <button class="secondary" id="save" title="Save" disabled>💾 Save</button>
+      </div>
+    </div>
+    <div class="row">
+      <div id="file-list-container">
+        <div id="file-list"></div>
+      </div>
+      <iframe id="editor" frameBorder="0" src="editor.html" style="width: 40%; min-height: 100%" class="col"></iframe>
+      <div class="col" style="flex-direction: column; padding-left:1em; max-width: 40%">
         <div>
-          Request <input type="text" value="/books" />
+          <h4>Request</h4>
+          <form id="request" class="row" style="flex-direction: column;">
+            <div class="col" style="display: flex; flex-direction: row; align-items: stretch;">
+              <label for="method"><select name="method">
+                <option selected value="GET">GET</option>
+                <option value="POST">POST</option>
+                <option value="PUT">PUT</option>
+                <option value="PATCH">PATCH</option>
+              </select></label>
+              <label for="url" style="flex: 1; padding-left: 1em;">
+                <input type="text" value="/books" name="uri" style="width: 100%;"/>
+              </label>
+            </div>
+            <div class="col">
+              <label for="accept">Accept
+                <select name="accept">
+                  <option selected value="application/ld+json">application/ld+json</option>
+                  <option value="application/json">application/json</option>
+                  <option value="application/vnd.api+json">application/vnd.api+json</option>
+                </select>
+              </label>
+              <label for="content-type">Content-Type
+                <select name="content-type">
+                  <option selected value="application/ld+json">application/ld+json</option>
+                  <option value="application/json">application/json</option>
+                  <option value="application/vnd.api+json">application/vnd.api+json</option>
+                </select>
+              </label>
+            </div>
+            <details class="col">
+              <summary>Body</summary>
+              <iframe id="body" src="response.html" frameBorder="0" width="100%" style="max-height:100px"></iframe>
+            </details> 
+            <input type="submit" value="Send" />
+          </form>
         </div>
         <div>
-          <iframe id="response" src="response.html" frameBorder="0" width="100%" style="min-height: 100vh"></iframe>
+          <h4>Response</h4>
+          <iframe id="response" src="response.html" frameBorder="0" width="100%" style="min-height: 40vh"></iframe>
         </div>
       </div>
     </div>
-    <script type="text/javascript" src="main.js"></script>
+    <footer id="story">
+      <a id="toggle-story" href="#" data-toggle="story-inner">Hide story</a>
+      <div id="story-inner"></div>
+    </footer>
+    <script type="text/javascript" src="main.js" rel="preload"></script>
   </body>
 </html>

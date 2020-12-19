@@ -1,6 +1,12 @@
 <?php 
 
-chdir('/src/preload/api-platform');
+/**
+ * This file is there as example and symfony is not loaded in this project
+ * Code behind https://twitter.com/s0yuka/status/1330152459315126275
+ */
+
+// Use this to go to the symfony preload directory
+// chdir('/src/symfony');
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
