@@ -3,7 +3,6 @@
 namespace App\DataPersister;
 
 use ApiPlatform\Core\DataPersister\DataPersisterInterface;
-use App\DataProvider\BookDataProvider;
 use App\Model\Book;
 use App\Persistence\BookMemory;
 

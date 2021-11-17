@@ -8,12 +8,13 @@
         "symfony/http-kernel": "^5.1",
         "symfony/routing": "^5.1",
         "symfony/event-dispatcher": "^5.1",
-        "api-platform/core": "^v2.6.0-alpha.1",
+        "api-platform/core": "dev-main",
         "doctrine/annotations": "^1.11",
         "doctrine/common": "^3.0",
         "symfony/property-info": "^5.1",
         "phpdocumentor/reflection-docblock": "^5.2",
         "symfony/validator": "^5.1",
         "willdurand/negotiation": "^3.0.0"
-    }
+    },
+    "minimum-stability": "dev"
 }

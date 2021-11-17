@@ -1,8 +1,8 @@
 const marked = require('marked')
-const {readFileSync} = require('fs')
+const nodeFs = require('fs')
 const {registerToggleButtons} = require('./utils')
 
-const phpCode = readFileSync(`${__dirname}/php/api-platform.php`, 'utf8')
+const phpCode = nodeFs.readFileSync(`${__dirname}/php/api-platform.php`, 'utf8')
 const ROOT_DIR = '/src/api-platform/persisted-examples'
 
 function createPhpRequest({
@@ -38,7 +38,7 @@ function updateForm(form, state, bodyView) {
   })
 }
 
-function App([editor, /* responseView */, fileTree, runCode, reset, bodyView, fs]) {
+function App([editor, /* responseView */, fileTree, runCode, reset, bodyView, fs, ccall]) {
   const requestForm = document.getElementById('request')
   const exampleSelect = document.getElementById('example')
   const saveButton = document.getElementById('save')
@@ -64,6 +64,18 @@ function App([editor, /* responseView */, fileTree, runCode, reset, bodyView, fs
     runCode(`<? use Symfony\\Component\\HttpFoundation\\Request; $run(${createPhpRequest(getFormRequestState(requestForm, bodyView))}, '${example}');`)
   }
 
+  function addRoutesTooltip() {
+    const routes = ccall('pib_exec', 'string', ['string'], [`$getRoutes('${exampleSelect.value}');`]);
+
+    let text = `<ul>`
+    JSON.parse(routes).map((route) => {
+      text += `<li>${route.method} ${route.path}</li>`
+    })
+    text += `</ul>`
+
+    document.getElementById('available-uris').innerHTML = text
+  }
+
   function loadExample(example) {
     fileTree.buildFsTree(`${ROOT_DIR}/${example}/src`)
     // load readme
@@ -75,6 +87,7 @@ function App([editor, /* responseView */, fileTree, runCode, reset, bodyView, fs
       state = JSON.parse(state) // keep this like this for stack traces
       editor.loadFile(`${ROOT_DIR}/${example}/${state.file}`)
       updateForm(requestForm, state, bodyView)
+      addRoutesTooltip()
     } catch (err) {
       console.error('No valid state found for example %s', example)
       console.error(err)
@@ -83,6 +96,7 @@ function App([editor, /* responseView */, fileTree, runCode, reset, bodyView, fs
 
   resetEditor()
   loadExample(exampleSelect.value)
+
 
   // register data-toggle buttons
   registerToggleButtons()

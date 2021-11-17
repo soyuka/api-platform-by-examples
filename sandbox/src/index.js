@@ -78,13 +78,13 @@ function runApp() {
   let initialized
   let failed
 
-  Promise((resolve, reject) => {
+  new Promise((resolve, reject) => {
     initialized = resolve
     failed = reject
 
     return loadPhp()
       .then(({
-        FS, stdout, stderr, runCode, phpVersion, reset, IDBFS,
+        FS, stdout, stderr, runCode, phpVersion, reset, IDBFS, ccall
       }) => {
         document.querySelector('[data-php-version]').innerText = `PHP Version: ${phpVersion}`
         return Promise.all([
@@ -95,6 +95,7 @@ function runApp() {
           reset,
           loadBodyFrame(),
           preparePersistentStorage({FS, IDBFS}),
+          ccall
         ])
       })
       .then((dependencies) => App(dependencies))

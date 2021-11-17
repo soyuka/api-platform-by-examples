@@ -47,12 +47,14 @@
                 <option value="PATCH">PATCH</option>
               </select></label>
               <label for="url" style="flex: 1; padding-left: 1em;">
-                <input type="text" value="/books" name="uri" style="width: 100%;"/>
+                <input type="text" value="/books" name="uri" style="width: 95%;"/>
+                <a data-toggle="available-uris" style="text-decoration:none;" href="#">❔</a>
+                <div id="available-uris" class="hide"></div>
               </label>
             </div>
             <div class="col">
               <label for="accept">Accept
-                <select name="accept">
+                <select name="accept" style="max-width: 30%">
                   <option selected value="application/ld+json">application/ld+json</option>
                   <option value="application/json">application/json</option>
                   <option value="application/vnd.api+json">application/vnd.api+json</option>
@@ -63,6 +65,7 @@
                   <option selected value="application/ld+json">application/ld+json</option>
                   <option value="application/json">application/json</option>
                   <option value="application/vnd.api+json">application/vnd.api+json</option>
+                  <option value="application/merge-patch+json">application/merge-patch+json</option>
                 </select>
               </label>
             </div>

@@ -13,7 +13,7 @@ function Tree(s, options) {
 
   this.tree = tree
   this.container = container
-  this.placeholder = options && options.placeholder;
+  this.placeholderValue = options && options.placeholder;
   this.placeholder();
   this.leafs = {};
   tree.addEventListener('click', (evt) => {
@@ -46,8 +46,8 @@ Tree.prototype = {
     return this;
   },
   placeholder() {
-    if (!this.tree.children.length && this.placeholder) {
-      this.tree.innerHTML = `<li class="vtree-placeholder">${this.placeholder}</li>`
+    if (!this.tree.children.length && this.placeholderValue) {
+      this.tree.innerHTML = `<li class="vtree-placeholder">${this.placeholderValue}</li>`
     } else {
       const p = this.tree.querySelector('.vtree-placeholder');
       if (p) this.tree.removeChild(p);

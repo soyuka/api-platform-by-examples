@@ -542,4 +542,4 @@ $kernel = new HttpKernel($dispatcher, $controllerResolver, new RequestStack(), $
 // $response = $kernel->handle($request);
 // $response->send();
 // $kernel->terminate($request, $response);
-return $kernel;
+return [$kernel, $routes];

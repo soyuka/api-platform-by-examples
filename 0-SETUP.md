@@ -1,6 +1,6 @@
 # Setup
 
-Create a symfony skeleton with ApiPlatform:
+Create a Symfony skeleton with ApiPlatform:
 
 ```
 composer create-project symfony/skeleton examples
