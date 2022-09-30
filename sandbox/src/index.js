@@ -34,7 +34,7 @@ function loadBodyFrame() {
     })
 }
 
-function preparePersistentStorage({FS: fs, IDBFS}) {
+function preparePersistentStorage({FS: fs}) {
   function cpR(from, to) {
     const files = fs.readdir(from)
 
@@ -64,7 +64,7 @@ function preparePersistentStorage({FS: fs, IDBFS}) {
   // Copy our examples to a persisted storage
   return new Promise((resolve, reject) => {
     fs.mkdir('/src/api-platform/persisted-examples')
-    fs.mount(IDBFS, {}, '/src/api-platform/persisted-examples')
+    fs.mount(fs.filesystems.IDBFS, {}, '/src/api-platform/persisted-examples')
 
     fs.syncfs(true, () => {
       // if synced data doesn't exist copy initial data
@@ -84,9 +84,10 @@ function runApp() {
 
     return loadPhp()
       .then(({
-        FS, stdout, stderr, runCode, phpVersion, reset, IDBFS, ccall
+        FS, stdout, stderr, runCode, phpVersion, apiPlatformVersion, reset, ccall
       }) => {
         document.querySelector('[data-php-version]').innerText = `PHP Version: ${phpVersion}`
+        document.querySelector('[data-api-platform-version]').innerText = `API Platform Version: ${apiPlatformVersion}`
         return Promise.all([
           loadEditorFrame({FS}),
           loadResponseFrame({stdout, stderr}),
@@ -94,7 +95,7 @@ function runApp() {
           runCode,
           reset,
           loadBodyFrame(),
-          preparePersistentStorage({FS, IDBFS}),
+          preparePersistentStorage({FS}),
           ccall
         ])
       })

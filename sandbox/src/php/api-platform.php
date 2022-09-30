@@ -11,36 +11,41 @@ chdir('/src/api-platform');
 $autoloader = require './vendor/autoload.php';
 
 class Kernel {
-    public static $kernel;
-    private $autoloader;
-    public function __construct($autoloader)
-    {
-        $this->autoloader = $autoloader;
+    public static $autoloader;
+    public static $apiPlatform;
+    private static $cache = [];
+
+    public function __construct($autoloader) {
+        self::$autoloader = $autoloader;
+
+        if (!isset(self::$apiPlatform)) {
+            self::$apiPlatform = require './index.php';
+        }
     }
 
-    public function load($example)
+    public static function load($example)
     {
-        if (static::$kernel) {
-            return static::$kernel;
+        if (isset(self::$cache[$example])) {
+            return call_user_func_array(self::$apiPlatform, self::$cache[$example]);
         }
 
-        $this->autoloader->setPsr4('App\\', ['/src/api-platform/examples/'.$example.'/src']);
-        $_SERVER['EXAMPLES'] = require('/src/api-platform/examples/'.$example.'/src/index.php');
-        return [static::$kernel, $routes] = require './index.php';
+        self::$autoloader->setPsr4('App\\', [$example.'/src']);
+        self::$cache[$example] = require($example.'/src/index.php');
+        return call_user_func_array(self::$apiPlatform, self::$cache[$example]);
     }
 }
 
 $kernel = new Kernel($autoloader);
 
 $run = function(Request $request, string $example) use ($kernel) {
-    [$kernel] = $kernel->load($example);
-    $response = $kernel->handle($request);
+    [$symfonyKernel] = $kernel::load($example);
+    $response = $symfonyKernel->handle($request);
     $response->send();
-    $kernel->terminate($request, $response);
+    $symfonyKernel->terminate($request, $response);
 };
 
 $getRoutes = function(string $example) use ($kernel) {
-    [, $routes] = $kernel->load($example);
+    [, $routes] = $kernel::load($example);
 
     $paths = [];
     foreach($routes as $route) {

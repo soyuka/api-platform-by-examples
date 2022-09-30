@@ -23,7 +23,16 @@ function Editor({FS, monaco, editor}) {
       save()
     }
 
-    const phpCode = FS.readFile(file, {encoding: 'utf8'})
+    let phpCode
+
+    try {
+      phpCode = FS.readFile(file, {encoding: 'utf8'})
+    } catch (err) {
+      console.error('Error reading file %s', file)
+      console.error(err)
+      return;
+    }
+
     state.loadedFile = file
     const oldModel = editor.getModel()
     const newModel = monaco.editor.createModel(phpCode, 'php')

@@ -1,5 +1,5 @@
 const {Observable} = require('rxjs')
-const phpBinary = require('../php-wasm/php-web');
+const phpBinary = require('./php-web');
 
 const NUM = 'number'
 const STR = 'string'
@@ -25,16 +25,18 @@ function php() {
       }
     },
   })
-    .then(({ccall, FS, IDBFS}) => {
+    .then((t) => {
+      const {ccall, FS, IDBFS} = t
       ccall('pib_init', NUM, [STR], []);
       const phpVersion = ccall('pib_exec', STR, [STR], ['phpversion();']);
+      const apiPlatformVersion = ccall('pib_exec', STR, [STR], [`str_replace('^', '', json_decode(file_get_contents('/src/api-platform/composer.json'))->require->{'api-platform/core'});`]);
       const runCode = (phpCode) => {
-        ccall('pib_run', NUM, [STR], [`?>${phpCode}`])
+        ccall('pib_run', NUM, [STR], [`?> ${phpCode}`])
       }
 
       const reset = () => ccall('pib_refresh', NUM, [], [])
       return {
-        ccall, FS, stdout, stderr, phpVersion, runCode, reset, IDBFS,
+        ccall, FS, stdout, stderr, phpVersion, apiPlatformVersion, runCode, reset,
       }
     })
 }

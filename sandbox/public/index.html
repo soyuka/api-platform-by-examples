@@ -16,15 +16,13 @@
       <div>
         <span data-php-version></span>
         <br>
-        <span>API Platform: 2.6</span>
+        <span data-api-platform-version></span>
       </div>
     </header>
     <div class="row">
       <div class="col">
         <label for="example">Example: </label>
         <select id="example" name="example">
-          <option value="basic">1. Basic</option>
-          <option value="persist">2. Persistence</option>
         </select>
         <button class="secondary" title="Toggle file tree" data-toggle="file-list-container">Hide files</button>
         <button class="secondary" id="save" title="Save" disabled>💾 Save</button>
@@ -37,55 +35,43 @@
       <iframe id="editor" frameBorder="0" src="editor.html" style="width: 40%; min-height: 100%" class="col"></iframe>
       <div class="col" style="flex-direction: column; padding-left:1em; max-width: 40%">
         <div>
-          <h4>Request</h4>
           <form id="request" class="row" style="flex-direction: column;">
-            <div class="col" style="display: flex; flex-direction: row; align-items: stretch;">
-              <label for="method"><select name="method">
-                <option selected value="GET">GET</option>
-                <option value="POST">POST</option>
-                <option value="PUT">PUT</option>
-                <option value="PATCH">PATCH</option>
+            <div id="request-content" class="hide">
+              <div class="col">
+                <label for="accept">Accept
+                  <select name="accept" style="max-width: 30%">
+                    <option selected value="application/ld+json">application/ld+json</option>
+                    <option value="application/json">application/json</option>
+                    <option value="application/vnd.api+json">application/vnd.api+json</option>
+                  </select>
+                </label>
+                <label for="content-type">Content-Type
+                  <select name="content-type">
+                    <option selected value="application/ld+json">application/ld+json</option>
+                    <option value="application/json">application/json</option>
+                    <option value="application/vnd.api+json">application/vnd.api+json</option>
+                    <option value="application/merge-patch+json">application/merge-patch+json</option>
+                  </select>
+                </label>
+              </div>
+              <details class="col">
+                <summary>Body</summary>
+                <iframe id="body" src="response.html" frameBorder="0" width="100%" style="max-height:100px"></iframe>
+              </details> 
+            </div>
+            <div style="flex-direction: column;">
+              <label for="route"><select name="route" id="routes">
               </select></label>
-              <label for="url" style="flex: 1; padding-left: 1em;">
-                <input type="text" value="/books" name="uri" style="width: 95%;"/>
-                <a data-toggle="available-uris" style="text-decoration:none;" href="#">❔</a>
-                <div id="available-uris" class="hide"></div>
-              </label>
+              <input type="submit" value="Send" />
+              <button id="open-request" data-toggle="request-content">Configure</button>
             </div>
-            <div class="col">
-              <label for="accept">Accept
-                <select name="accept" style="max-width: 30%">
-                  <option selected value="application/ld+json">application/ld+json</option>
-                  <option value="application/json">application/json</option>
-                  <option value="application/vnd.api+json">application/vnd.api+json</option>
-                </select>
-              </label>
-              <label for="content-type">Content-Type
-                <select name="content-type">
-                  <option selected value="application/ld+json">application/ld+json</option>
-                  <option value="application/json">application/json</option>
-                  <option value="application/vnd.api+json">application/vnd.api+json</option>
-                  <option value="application/merge-patch+json">application/merge-patch+json</option>
-                </select>
-              </label>
-            </div>
-            <details class="col">
-              <summary>Body</summary>
-              <iframe id="body" src="response.html" frameBorder="0" width="100%" style="max-height:100px"></iframe>
-            </details> 
-            <input type="submit" value="Send" />
           </form>
         </div>
         <div>
-          <h4>Response</h4>
-          <iframe id="response" src="response.html" frameBorder="0" width="100%" style="min-height: 40vh"></iframe>
+          <iframe id="response" src="response.html" frameBorder="0" width="100%" style="min-height: 60vh"></iframe>
         </div>
       </div>
     </div>
-    <footer id="story">
-      <a id="toggle-story" href="#" data-toggle="story-inner">Hide story</a>
-      <div id="story-inner"></div>
-    </footer>
     <script type="text/javascript" src="main.js" rel="preload"></script>
   </body>
 </html>
