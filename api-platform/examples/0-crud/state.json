@@ -1,0 +1,7 @@
+{
+  "file": "src/ApiResource/Book.php",
+  "uri": "/books",
+  "method": "GET",
+  "body": "",
+  "title": "CRUD"
+}

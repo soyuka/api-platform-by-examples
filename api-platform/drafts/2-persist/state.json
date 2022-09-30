@@ -2,5 +2,6 @@
   "file": "src/DataPersister/BookDataPersister.php",
   "uri": "/books",
   "method": "POST",
-  "body": {"id": "1", "name": "1984"}
+  "body": {"id": "1", "name": "1984"},
+  "title": "Persist"
 }

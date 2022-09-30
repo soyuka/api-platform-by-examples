@@ -1,0 +1,7 @@
+{
+  "file": "src/State/BookProvider.php",
+  "uri": "/books",
+  "method": "GET",
+  "body": "",
+  "title": "Provide data"
+}

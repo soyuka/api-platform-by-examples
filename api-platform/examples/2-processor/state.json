@@ -1,0 +1,7 @@
+{
+  "file": "src/State/BookProcessor.php",
+  "uri": "/books",
+  "method": "POST",
+  "body": {"title": "API Platform rocks!"},
+  "title": "Persist data"
+}

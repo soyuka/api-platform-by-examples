@@ -1,20 +1,19 @@
 {
     "autoload": {
         "psr-4": {
-            "App\\": "src/"
+            "ApiPlatform\\Standalone\\": "src/"
         }
     },
     "require": {
-        "symfony/http-kernel": "^5.1",
-        "symfony/routing": "^5.1",
-        "symfony/event-dispatcher": "^5.1",
-        "api-platform/core": "dev-main",
-        "doctrine/annotations": "^1.11",
-        "doctrine/common": "^3.0",
-        "symfony/property-info": "^5.1",
+        "symfony/http-kernel": "^6.1",
+        "symfony/routing": "^6.1",
+        "symfony/event-dispatcher": "^6.1",
+        "api-platform/core": "^3.0",
+        "symfony/property-info": "^6.1",
         "phpdocumentor/reflection-docblock": "^5.2",
-        "symfony/validator": "^5.1",
-        "willdurand/negotiation": "^3.0.0"
-    },
-    "minimum-stability": "dev"
+        "symfony/validator": "^6.1",
+        "willdurand/negotiation": "^3.0.0",
+        "doctrine/orm": "^2.13",
+        "doctrine/common": "^3.4"
+    }
 }
