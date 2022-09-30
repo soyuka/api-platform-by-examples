@@ -16,7 +16,14 @@ function createPhpRequest({
 
 function getFormRequestState(form, bodyView, routesSelect) {
   const formData = new FormData(form)
-  const {method, uri} = routesSelect.options[routesSelect.selectedIndex].dataset
+  let method = 'GET'
+  let uri = '/'
+
+  if (routesSelect.options[routesSelect.selectedIndex]) {
+    const dataset = routesSelect.options[routesSelect.selectedIndex].dataset
+    method = dataset.method || method
+    uri = dataset.uri || uri
+  }
 
   const uriVariables = {}
   const template = uritemplate.parse(uri)
