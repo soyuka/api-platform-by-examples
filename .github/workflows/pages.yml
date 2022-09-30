@@ -20,6 +20,9 @@ concurrency:
   group: "pages"
   cancel-in-progress: true
 
+env:
+  GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
 jobs:
   # Single deploy job since we're just deploying
   deploy:
@@ -30,6 +33,31 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3
+      - name: Cache php-wasm
+        id: cache-wasm
+        uses: actions/cache@v3
+        with:
+          path: php-wasm/build
+          key: ${{ runner.os }}-php-wasm
+      - name: Build wasm
+        run: |
+            gh repo clone soyuka/php-wasm
+            cd php-wasm
+            make 
+      - name: Copy files
+        run: |
+            mkdir -p sandbox/php-wasm
+            cp php-wasm/build/php-web.js sandbox/php-wasm/
+            cp php-wasm/build/php-web.wasm sandbox/public/
+      - name: Install php
+        run: |
+            cd api-platform
+            composer install
+      - name: Install sandbox
+        run: |
+            cd sandbox
+            make preload
+            make install
       - name: Setup Pages
         uses: actions/configure-pages@v2
       - name: Upload artifact

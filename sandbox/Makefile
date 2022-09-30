@@ -15,6 +15,7 @@ install:
 	npm install
 	cp -r node_modules/monaco-editor public/
 	cp -r node_modules/normalize.css/normalize.css public/
+	./node_modules/.bin/browserify -t brfs src/index.js -o public/main.js
 	# and Add these
 	# public/php-web.wasm 
 	# php-web.data
