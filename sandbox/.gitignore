@@ -1,6 +1,6 @@
 public/monaco-editor
 public/main.js
 public/normalize.css
-php-wasm/*
+# php-wasm/*
 public/php-web.data
 public/php-web.wasm
