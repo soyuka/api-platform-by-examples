@@ -6,7 +6,7 @@ error_reporting(E_ALL);
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 ini_set('log_errors', 1);
-chdir('/src/api-platform/skeleton');
+chdir('/src/api-platform');
 
 require './vendor/autoload.php';
 
@@ -25,7 +25,7 @@ $runtime = new $runtime(['disable_dotenv']);
 
 $app = $app(...$args);
 
-$app->runIndex();
+//$app->runIndex();
 
 
 //if (function_exists('request')) {

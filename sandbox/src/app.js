@@ -179,7 +179,7 @@ function App([editor, /* responseView */, fileTree, runCode, reset, bodyView, fs
   // loadExample(exampleSelect.value)
   runCode(`${indexCode}`);
   // runCode('<? $app->runIndex();');
-  // runCode(`<? $runIndex(Symfony\\Component\\HttpFoundation\\Request::create('/docs.json', 'GET', [], [], [], ['CONTENT_TYPE' => 'application/json']));`);
+  runCode(`<? $app->runIndex(Symfony\\Component\\HttpFoundation\\Request::create('/docs.json', 'GET', [], [], [], ['CONTENT_TYPE' => 'application/json']));`);
 
   // register data-toggle buttons
   registerToggleButtons()
