@@ -48,18 +48,16 @@ namespace App\OpenApi {
 
 
 namespace App\Tests {
-
     use Symfony\Component\HttpFoundation\Request;
 
     function request(): Request
     {
-        return Request::create('/docs.json', 'GET', [], [], [], ['CONTENT_TYPE' => 'application/json']);
+        return Request::create('/docs.json');
     }
 
 }
 
 namespace App\DependencyInjection {
-
     use App\OpenApi\OpenApiFactory;
     use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
     use function Symfony\Component\DependencyInjection\Loader\Configurator\service;

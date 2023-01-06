@@ -24,15 +24,4 @@ $runtime = new $runtime(['disable_dotenv']);
     ->resolve();
 
 $app = $app(...$args);
-
 $app->request();
-
-
-//if (function_exists('request')) {
-//    $runTest = function () use ($app) {
-//        $request = \App\Tests\request();
-//        $response = $app->handle($request);
-//        $response->send();
-//        $app->terminate($request, $response);
-//    };
-//}

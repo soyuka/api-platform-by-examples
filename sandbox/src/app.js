@@ -2,7 +2,6 @@ const nodeFs = require('fs')
 const {registerToggleButtons} = require('./utils')
 const uritemplate = require('uritemplate')
 
-const apiPlatformBootstrapCode = nodeFs.readFileSync(`${__dirname}/php/api-platform.php`, 'utf8')
 const indexCode = nodeFs.readFileSync(`${__dirname}/php/index.php`, 'utf8')
 const ROOT_DIR = '/src/api-platform/persisted-examples'
 

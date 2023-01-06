@@ -8,8 +8,8 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Kernel as BaseKernel;
-use function App\Tests\request;
 use function App\DependencyInjection\configure;
+use function App\Tests\request;
 
 class Kernel extends BaseKernel
 {
@@ -34,14 +34,16 @@ class Kernel extends BaseKernel
         }
     }
 
-    public function request(?Request $request = null)
+    public function request(?Request $request = null): void
     {
         if (null === $request && function_exists('App\Tests\request')) {
             $request = request();
         }
 
+        $request = $request ?? Request::create('/docs.json');
         $response = $this->handle($request);
         $response->send();
         $this->terminate($request, $response);
     }
 }
+
