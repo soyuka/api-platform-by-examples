@@ -9,12 +9,12 @@ doctrine:
     auto_generate_proxy_classes: true
     naming_strategy: doctrine.orm.naming_strategy.underscore_number_aware
     auto_mapping: true
-    mappings:
-      App:
-        is_bundle: false
-        dir: '/src/api-platform/src/Entity'
-        prefix: 'App\Entity'
-        alias: App
+    # mappings:
+    #   App:
+    #     is_bundle: false
+    #     dir: '/src/api-platform/src/Entity'
+    #     prefix: 'App\Entity'
+    #     alias: App
 
 when@test:
   doctrine:
