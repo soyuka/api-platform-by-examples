@@ -1,3 +1,6 @@
 api_platform:
+#  formats:
+#    jsonld: [ 'application/ld+json' ]
+
   doctrine:
     enabled: true

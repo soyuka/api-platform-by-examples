@@ -1,0 +1,12 @@
+{
+  "file": "src/Entity/Product.php",
+  "uri": "/products",
+  "method": "POST",
+  "body": {
+    "name": "My awesome product",
+    "properties": {
+      "description": "My awesome product description"
+    }
+  },
+  "title": "Validate User Input"
+}

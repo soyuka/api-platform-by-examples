@@ -3,6 +3,7 @@ const {registerToggleButtons} = require('./utils')
 const uritemplate = require('uritemplate')
 
 const apiPlatformBootstrapCode = nodeFs.readFileSync(`${__dirname}/php/api-platform.php`, 'utf8')
+const indexCode = nodeFs.readFileSync(`${__dirname}/php/index.php`, 'utf8')
 const ROOT_DIR = '/src/api-platform/persisted-examples'
 
 function createPhpRequest({
@@ -171,12 +172,14 @@ function App([editor, /* responseView */, fileTree, runCode, reset, bodyView, fs
       console.error(err)
     }
   }
-
-  loadExamples()
-
-  resetEditor()
-  loadExample(exampleSelect.value)
-  runPhpRequest(exampleSelect.value)
+  //
+  // loadExamples()
+  //
+  // resetEditor()
+  // loadExample(exampleSelect.value)
+  runCode(`${indexCode}`);
+  // runCode('<? $app->runIndex();');
+  // runCode(`<? $runIndex(Symfony\\Component\\HttpFoundation\\Request::create('/docs.json', 'GET', [], [], [], ['CONTENT_TYPE' => 'application/json']));`);
 
   // register data-toggle buttons
   registerToggleButtons()
