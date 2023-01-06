@@ -8,6 +8,8 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Kernel as BaseKernel;
+use function App\Tests\request;
+use function App\DependencyInjection\configure;
 
 class Kernel extends BaseKernel
 {
@@ -27,18 +29,15 @@ class Kernel extends BaseKernel
             $container->import($configDir.'/{services}.php');
         }
 
-        if (function_exists('App\Configurator\configure')) {
-            \App\Configurator\configure($container);
+        if (function_exists('App\DependencyInjection\configure')) {
+            configure($container);
         }
     }
 
-    public function runIndex(?Request $request = null)
+    public function request(?Request $request = null)
     {
-        if (!$request) {
-//        if (!function_exists('App\Configurator\testRequest')) {
-//            throw new \RuntimeException();
-//        }
-//            $request = \App\Configurator\testRequest();
+        if (null === $request && function_exists('App\Tests\request')) {
+            $request = request();
         }
 
         $response = $this->handle($request);

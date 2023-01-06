@@ -38,10 +38,7 @@
         "sort-packages": true
     },
     "autoload": {
-        "psr-4": {
-            "App\\": "src/"
-        },
-        "files": ["src/guide.php"]
+        "files": ["src/guide.php", "src/Kernel.php"]
     },
     "replace": {
         "symfony/polyfill-ctype": "*",

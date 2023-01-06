@@ -25,7 +25,7 @@ $runtime = new $runtime(['disable_dotenv']);
 
 $app = $app(...$args);
 
-//$app->runIndex();
+$app->request();
 
 
 //if (function_exists('request')) {

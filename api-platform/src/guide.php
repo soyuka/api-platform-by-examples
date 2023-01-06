@@ -51,14 +51,14 @@ namespace App\Tests {
 
     use Symfony\Component\HttpFoundation\Request;
 
-    function testRequest(): Request
+    function request(): Request
     {
         return Request::create('/docs.json', 'GET', [], [], [], ['CONTENT_TYPE' => 'application/json']);
     }
 
 }
 
-namespace App\Configurator {
+namespace App\DependencyInjection {
 
     use App\OpenApi\OpenApiFactory;
     use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
@@ -71,12 +71,6 @@ namespace App\Configurator {
             ->args([service('.inner')])
             ->autowire(true)
         ;
-    }
-    use Symfony\Component\HttpFoundation\Request;
-
-    function testRequest()
-    {
-        return Request::create('/docs.json', 'GET', [], [], [], ['CONTENT_TYPE' => 'application/json']);
     }
 }
 
